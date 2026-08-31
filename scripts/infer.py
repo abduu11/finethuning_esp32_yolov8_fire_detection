@@ -12,15 +12,30 @@ Force un seuil de confiance par défaut à 0.55 pour éviter les faux positifs
 """
 
 import argparse
+from pathlib import Path
+
 import torch
 from ultralytics import YOLO
+
+
+def find_model() -> str:
+    """Locate the model weights: next to this script, then in repo layout."""
+    here = Path(__file__).resolve().parent
+    candidates = [
+        here / "fire_smoke_esp32_yolov8n.pt",                    # same folder
+        here.parent / "models" / "fire_smoke_esp32_yolov8n.pt",  # repo layout
+    ]
+    for c in candidates:
+        if c.exists():
+            return str(c)
+    return "fire_smoke_esp32_yolov8n.pt"  # fallback (cwd / --model)
 
 
 def parse_args():
     p = argparse.ArgumentParser(description="Fire/smoke inference (ESP32-CAM model)")
     p.add_argument("--source", required=True,
                    help="image/video path, folder, or webcam index (0)")
-    p.add_argument("--model", default="models/fire_smoke_esp32_yolov8n.pt",
+    p.add_argument("--model", default=find_model(),
                    help="model weights")
     p.add_argument("--conf", type=float, default=0.55,
                    help="confidence threshold (default 0.55 to limit false positives)")
