@@ -13,7 +13,7 @@ def parse_args():
     p = argparse.ArgumentParser(description="Sprint 1: baseline fire/smoke webcam inference")
     p.add_argument("--model", default="models/fire_smoke_yolov8n.pt")
     p.add_argument("--source", default="0", help="webcam index (int) or video/image path")
-    p.add_argument("--conf", type=float, default=0.35)
+    p.add_argument("--conf", type=float, default=0.55, help="confidence threshold (0.55 recommended to limit false positives)")
     p.add_argument("--imgsz", type=int, default=416, help="inference size (320 fast, 640 accurate)")
     p.add_argument("--threads", type=int, default=4, help="CPU thread count (physical cores)")
     p.add_argument("--device", default="auto", help="device: auto / 0 (cuda:0) / cpu")
