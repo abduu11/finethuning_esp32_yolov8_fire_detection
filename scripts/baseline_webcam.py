@@ -25,6 +25,8 @@ def parse_args():
 
 def main():
     args = parse_args()
+    if args.device == "auto":
+        args.device = "0" if torch.cuda.is_available() else "cpu"
     torch.set_num_threads(args.threads)
     cv2.setNumThreads(args.threads)
     model = YOLO(args.model)
