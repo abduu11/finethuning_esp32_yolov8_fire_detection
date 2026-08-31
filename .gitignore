@@ -1,0 +1,21 @@
+# Python
+.venv/
+__pycache__/
+*.pyc
+*.pyo
+
+# Dataset (downloaded/augmented — régénérable via scripts/download_dfire.py)
+data/
+
+# Model weights (téléchargés ou générés)
+*.pt
+
+# Training output
+runs/
+
+# Misc
+*.csv
+*.cache
+*.png
+*.jpg
+*.jpeg
